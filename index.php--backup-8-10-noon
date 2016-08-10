@@ -181,38 +181,25 @@ function init() {
   <?php 
     $worker_names=array();
     $worker_ids=array();
-    $department_ids=array();
-    $department_names=array();
     $assigned_spot_ids=array();
     $assigned_spot_labels=array();
-    $car_models=array();
-
     foreach ($workers->all_workers as $worker){
         array_push($worker_names, $worker->worker);
         array_push($worker_ids, $worker->id);
-        array_push($department_ids, $worker->department_id);
-        array_push($department_names, $worker->department_name);
         array_push($assigned_spot_ids,$worker->assigned_parking_spot);//could be null
         array_push($assigned_spot_labels, $worker->parking_spot_label);//could be null
-        array_push($car_models,$worker->car_model);
     }
   	// var_dump($worker_ids);
 
     $worker_names_js='["' . implode('", "', $worker_names) . '"]';//to be used by js
     $worker_ids_js='["' . implode('", "', $worker_ids) . '"]';//to be used by js
-    $department_ids_js='["' . implode('", "', $department_ids) . '"]';//to be used by js
-    $department_names_js='["' . implode('", "', $department_names) . '"]';//to be used by js
     $assigned_spot_ids_js='["' . implode('", "', $assigned_spot_ids) . '"]';//to be used by js
     $assigned_spot_labels_js='["' . implode('", "', $assigned_spot_labels) . '"]';//to be used by js
-    $car_models_js='["' . implode('", "', $car_models) . '"]';//to be used by js
   ?>
   var worker_ids=<?php echo $worker_ids_js?>;
   var worker_names=<?php echo $worker_names_js?>;
-  var department_ids=<?php echo $department_ids_js?>;
-  var department_names=<?php echo $department_names_js?>;
   var assigned_spot_ids=<?php echo $assigned_spot_ids_js?>;
   var assigned_spot_labels=<?php echo $assigned_spot_labels_js?>;
-  var car_models=<?php echo $car_models_js?>;
 
   var arrayLength = worker_ids.length;
   // for ( var i=0; i<10; i++ ) {
@@ -226,7 +213,7 @@ function init() {
 
   for (var i = 0; i < arrayLength; i++) {
   		console.log('creating car for '+worker_names[i]);
-      $('<div style="color:skyblue">' + worker_names[i] + '</div>').data( 'worker_id', worker_ids[i] ).data( 'worker_name', worker_names[i] ).data('department_id',department_ids[i]).data('department_name',department_names[i]).data('assigned_spot_id',assigned_spot_ids[i]).data('assigned_spot_label',assigned_spot_labels[i]).data('car_model',car_models[i]).attr( 'id', 'car_of_worker_id_'+worker_ids[i] ).appendTo( '#cardPile' ).draggable( {
+      $('<div style="color:skyblue">' + worker_names[i] + '</div>').data( 'worker_id', worker_ids[i] ).data( 'worker_name', worker_names[i] ).data('assigned_spot_id',assigned_spot_ids[i]).attr( 'id', 'car_of_worker_id_'+worker_ids[i] ).appendTo( '#cardPile' ).draggable( {
       start:handleDragStart,
       containment: '#content',
       stack: '#cardPile div',
@@ -395,7 +382,7 @@ function handleDragStart( event, ui ) {
     // console.log(ui.helper);
     // console.log(ui.helper.draggable);
     ui.helper.removeClass( 'occupied' );
-    $('#car_of_worker_id_'+worker_id).html(worker_name); //remove the span(spot label) on top of the car below worker. and change back to white span
+    $('#car_of_worker_id_'+worker_id).html(worker_name); //remove the span(spot label) on top of the car below worker. and change back to white font
     //-------------------ajax removing any assigned spot for this worker---------------------
     if (request_drag_start){
         request_drag_start.abort();
@@ -560,48 +547,47 @@ function handleDragStart( event, ui ) {
             <div style="padding: 80px 20px;">
 	            <table class="green2 pop_up_table"><!--600px-->
 	            	<tr>
-						<th nowrap="" width="136"><div align="right"><span>Worker Name:</span></div></th>
+						<th nowrap="" width="136"><div align="right"><font>Worker Name:</font></div></th>
 						<td nowrap="" width="440">
 							<div align="right">
-								<span class="pop_up_worker_name">
+								<font>
 									...
-		            			</span>
-		            			<input class="hidden" type="text" class="pop_up_worker_name" value="">
+		            			</font>
+		            			<input class="hidden" type="text" id="pop_up_worker_name" value="">
 	            			</div>
 	            		</td>
 	            	</tr>
 	            	<tr>
-						<th nowrap="" width="136"><div align="right"><span>Department:</span></div></th>
+						<th nowrap="" width="136"><div align="right"><font>Department:</font></div></th>
 						<td nowrap="" width=500>
 							<div align="right">
-								<span class="pop_up_department_name">
+								<font>
 									...
-		            			</span>
-		            			<input class="hidden" type="text" class="pop_up_department_name" value="">
+		            			</font>
+		            			<input class="hidden" type="text" id="pop_up_department" value="">
 	            			</div>
 	            		</td>
 	            	</tr>
 	            	<tr>
-						<th nowrap="" width="136"><div align="right"><span>Car Model:</span></div></th>
+						<th nowrap="" width="136"><div align="right"><font>Car Model:</font></div></th>
 						<td nowrap="" width="440">
 							<div align="right">
-								<span class="pop_up_car_model">
+								<font>
 									...
-		            			</span>
-		            			<input class="hidden" type="text" class="pop_up_car_model" value="">
+		            			</font>
+		            			<input class="hidden" type="text" id="pop_up_car_model" value="">
 	            			</div>
 	            		</td>
 	            	</tr>
 	            	<tr>
-						<th nowrap="" width="136"><div align="right"><span>Parking Spot:</span></div></th>
+						<th nowrap="" width="136"><div align="right"><font>Parking Spot:</font></div></th>
 						<td nowrap="" width="440">
 							<div align="right">
-								<span class="pop_up_assigned_spot_label">
+								<font>
 								...
-		            			</span>
+		            			</font>
 
-		            			<input class="hidden" type="text" class="pop_up_assigned_spot_id" value="">
-		            			<input class="hidden" type="text" class="pop_up_assigned_spot_label" value="">
+		            			<input class="hidden" type="text" id="pop_up_parking_spot" value="">
 	            			</div>
 	            		</td>
 	            	</tr>
@@ -619,39 +605,6 @@ function handleDragStart( event, ui ) {
 	        // document.getElementById("fade").style.display="none";
 	    });
 	    $(".ui-draggable").click(function(){
-	    	var worker_id=$(this).data('worker_id');
-	    	var worker_name=$(this).data('worker_name');
-	    	var department_id=$(this).data('department_id');//not used now
-	    	var department_name=$(this).data('department_name');
-	    	var assigned_spot_id=$(this).data('assigned_spot_id');
-	    	var assigned_spot_label=$(this).data('assigned_spot_label');
-	    	var car_model=$(this).data('car_model');
-	    	//-------------make it user friendly by translating 108 and 4 to N/A-------------
-	    	console.log(department_id);
-	    	console.log(parseInt(department_id));
-	    	if (parseInt(department_id)===4){
-	    		//no department assigned yet. like Sam
-	    		department_name='N/A';
-	    	}
-	    	if (parseInt(assigned_spot_id)===108){
-	    		//no spot assigned to this worker yet. 
-	    		assigned_spot_label='N/A';
-	    	}
-	    	//------------change all worker data on popup span-----------------------------------
-	    	$('span.pop_up_worker_id').html(worker_id);//ids all start with pop_up
-	    	$('span.pop_up_worker_name').html(worker_name);
-	    	$('span.pop_up_department_name').html(department_name);
-	    	$('span.pop_up_assigned_spot_id').html(assigned_spot_id);
-	    	$('span.pop_up_assigned_spot_label').html(assigned_spot_label);
-	    	$('span.pop_up_car_model').html(car_model);
-	    	//------------change all worker data on popup input field----------------------------
-	    	$('input.pop_up_worker_id').val(worker_id);//ids all start with pop_up
-	    	$('input.pop_up_worker_name').val(worker_name);
-	    	$('input.pop_up_department_name').val(department_name);
-	    	$('input.pop_up_assigned_spot_id').val(assigned_spot_id);
-	    	$('input.pop_up_assigned_spot_label').val(assigned_spot_label);
-	    	$('input.pop_up_car_model').val(car_model);
-
 	        document.getElementById("whole_pop_up_with_transparent").style.display="block";
 	        // document.getElementById("fade").style.display="block";
 	    })
@@ -686,9 +639,9 @@ function handleDragStart( event, ui ) {
 		    background-color: #4EB106;
 		    color: white;
 		    -moz-border-radius: ;
-		    span-family: Verdana;
-		    span-size: 13px;
-		    span-weight: 100;
+		    font-family: Verdana;
+		    font-size: 13px;
+		    font-weight: 100;
 		}
 
 		table.green2 td {
@@ -696,9 +649,9 @@ function handleDragStart( event, ui ) {
 		    padding: 4px;
 		    border-style: solid;
 		    border-color: #BBB99D;
-		    span-family: Verdana;
-		    span-size: 13px;
-		    span-weight: 100;
+		    font-family: Verdana;
+		    font-size: 13px;
+		    font-weight: 100;
 		    color: #404040;
 		    -moz-border-radius: ;
 		}
