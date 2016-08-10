@@ -1,0 +1,63 @@
+<?php
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+$parking_spot_id=$_GET['parking_spot_id'];
+$response['queried_spot_id']=$parking_spot_id;
+
+if (!isset($parking_spot_id) || !is_numeric($parking_spot_id)){
+	$response['data']['error_msg']="Error: param not set or not numeric.";
+	die (json_encode($response, JSON_FORCE_OBJECT));
+}
+
+
+
+require "database/dbcontroller.php";
+require "model/workers.php";
+require "model/parking_spots_table.php";
+
+$db_handle=new DBController();
+//--------------------get a list of spots objects---------------------
+$parking_spots_table=new parking_spots_table($db_handle);
+// var_dump($parking_spots_table);
+//--------------------check if $parking_spot_id exists/is valid-------
+$spot_exists=false;
+foreach ($parking_spots_table->all_rows as $row) {
+	if ($row['id']===$parking_spot_id){
+		//is valid:
+		$spot_exists=true;
+		break;
+	}
+}
+
+
+if (!$spot_exists){
+	$response['is_valid_query']=false;//param: spot id exists. 
+	$response['error_msg']="spot_id not valid";
+	die (json_encode($response, JSON_FORCE_OBJECT));
+}
+
+$response['is_valid_query']=true;
+//--------------------get a list of workers objects-------------------
+$workers=new workers($db_handle);
+$occupied=false;
+// var_dump($workers->all_workers);
+
+foreach ($workers->all_workers as $worker) {
+	// var_dump($worker);
+	// var_dump($worker->assigned_parking_spot);
+	// var_dump($parking_spot_id);
+	if ($worker->assigned_parking_spot==$parking_spot_id){
+		$occupied=true;
+		break;
+	}
+}
+
+
+
+if ($occupied===true){
+	$response['data']['is_occupied']=true;
+}else{
+	$response['data']['is_occupied']=false;
+}
+
+
+die (json_encode($response, JSON_FORCE_OBJECT));

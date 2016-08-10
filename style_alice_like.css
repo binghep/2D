@@ -1,0 +1,237 @@
+/* Add some margin to the page and set a default font and colour */
+ 
+body {
+  margin: 30px;
+  /*font-family: "Georgia", serif;*/
+  font-family: arial,'Helvetica Neue', Helvetica, sans-serif;
+  line-height: 1.8em;
+  color: #333;
+}
+ 
+/* Give headings their own font */
+ 
+h1, h2, h3, h4 {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+ 
+/* Main content area */
+ 
+#content {
+  /*margin: 80px 70px;*/
+  text-align: center;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+ 
+/* Header/footer boxes */
+ 
+.wideBox {
+  clear: both;
+  text-align: center;
+  margin: 70px;
+  padding: 10px;
+  background: #ebedf2;
+  border: 1px solid #333;
+}
+ 
+.wideBox h1 {
+  font-weight: bold;
+  margin: 20px;
+  color: #666;
+  font-size: 1.5em;
+}
+ 
+/* Slots for final card positions */
+ 
+#cardSlots {
+  margin: 50px auto 0 auto;
+  /*background: #ddf;*/
+  background: #e8eef1;
+}
+ 
+/* The initial pile of unsorted cards */
+ 
+#cardPile {
+  margin: 0 auto;
+  /*background: #ffd;*/
+  background: #859197;
+}
+ 
+#cardSlots, #cardPile {
+  width: 910px;
+  height: 120px;
+  padding: 20px;
+  /*border: 2px solid #333;*/
+
+  /*-moz-border-radius: 10px;*/
+  /*-webkit-border-radius: 10px;*/
+  /*border-radius: 10px;*/
+  
+  -moz-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+}
+ 
+/* Individual cards and slots */
+ 
+#cardSlots div, #cardPile div {
+  float: left;
+  /*width: 58px;\*/
+  width: 30px;
+  /*height: 78px;*/
+  height: 40px;
+  /*padding: 10px;*/
+  padding-top: 14px;
+  /*padding-bottom: 25px;*/
+  /*border: 2px solid #333;*/
+  border: 1px solid #333;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  /*margin: 0 0 0 10px;*/
+  background: #fff;
+}
+ 
+#cardSlots div:first-child, #cardPile div:first-child {
+  margin-left: 0;
+}
+ 
+#cardSlots div.hovered {
+  background: #aaa;
+}
+ 
+#cardSlots div {
+  border-style: dashed;
+}
+ 
+#cardPile div {
+  background: #666;
+  color: #fff;
+  /*font-size: 50px;*/
+  font-size: 10px;
+  text-shadow: 0 0 3px #000;
+}
+ 
+#cardPile div.ui-draggable-dragging {
+  -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+}
+ 
+/* Individually coloured cards */
+ 
+#card1.correct { background: red; }
+#card2.correct { background: brown; }
+#card3.correct { background: orange; }
+#card4.correct { background: yellow; }
+#card5.correct { background: green; }
+#card6.correct { background: cyan; }
+#card7.correct { background: blue; }
+#card8.correct { background: indigo; }
+#card9.correct { background: purple; }
+#card10.correct { background: violet; }
+ 
+ 
+/* "You did it!" message */
+#successMessage {
+  position: absolute;
+  left: 580px;
+  top: 250px;
+  width: 0;
+  height: 0;
+  z-index: 100;
+  background: #dfd;
+  border: 2px solid #333;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -moz-box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+  box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+  padding: 20px;
+}
+
+
+/*===============================Alice added===============================*/
+.bush{
+  float: left;
+  /*width: 58px;\*/
+  width: 38px;
+  /*height: 78px;*/
+  height: 42px;
+  /*padding: 10px;*/
+  padding-top: 14px;
+  /*padding-bottom: 25px;*/
+  /*border: 2px solid #333;*/
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  /*margin: 0 0 0 10px;*/
+  background: green; /*only difference between blue_line_spot and bush*/
+
+    border: solid !important;
+    border-color: green !important;
+    background: green !important;
+
+}
+.road{
+    border: none !important;
+    width: 1592px !important;
+    background: #ffd !important;
+    padding-top: 0px;
+    height: 80px;
+}
+.text_div{
+    border: none !important;
+    width: 1592px !important;
+    height: 27px !important;
+
+    background: transparent !important;
+    /*font-size: 25px !important;*/
+    padding-top: 10px !important;
+    padding-bottom: 27px !important;
+}
+.blue_line_spot{
+  float: left;
+  width: 38px;
+  /*height: 78px;*/
+  height: 42px;
+  padding-top: 14px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+
+    border: solid 1px !important;
+    border-color: transparent !important;
+    background: url("images/blue_line_spot3.png") !important;/*only difference between blue_line_spot and bush*/
+}
+.stairway{
+	border: none !important;
+    width: 192px !important;
+    background: #ffd !important;
+    padding-top: 0px;
+    height: 80px;
+    float: left;
+}
+
+#message{
+  position: absolute;
+  left: 580px;
+  top: 50px;
+  width: 200;
+  height: 50;
+  z-index: 100;
+  /*background: #dfd;*/
+  background: #8dbe5e;
+  /*border: 2px solid #333;*/
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -moz-box-shadow: .3em .3em .5em rgba(0, 0, 0, .5);
+  -webkit-box-shadow: .3em .3em .5em rgba(0, 0, 0, .5);
+  box-shadow: .3em .3em .5em rgba(0, 0, 0, .5);
+  padding: 5px 10px;
+}
+
+
