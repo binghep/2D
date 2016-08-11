@@ -12,16 +12,20 @@ class worker_object{
 	//an array of product_stock_object, which is used in providing first half of stock report
 	public $id;
 	public $worker;//name
-	public $car;
+	public $department_id;
+	public $department_name;
+	public $car_model;
 	public $assigned_parking_spot;
 	public $parking_spot_label;//joining tables get this value
 
 	public $db_handle;
-	function __construct($id,$worker,$car,$assigned_parking_spot,$parking_spot_label){
+	function __construct($id,$worker,$department_id,$department_name,$car_model,$assigned_parking_spot,$parking_spot_label){
 		$this->db_handle=$db_handle;
 		$this->id=$id;
 		$this->worker=$worker;
-		$this->car=$car;
+		$this->department_id=$department_id;
+		$this->department_name=$department_name;
+		$this->car_model=$car_model;
 		$this->assigned_parking_spot=$assigned_parking_spot;
 
 		$this->parking_spot_label=$parking_spot_label;
