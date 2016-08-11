@@ -132,19 +132,22 @@ function display_spots($region_1_spot_labels){
 <!doctype html>
 <html lang="en">
 <head>
- 
-<title>2D Parking</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-<link rel="stylesheet" type="text/css" href="style_22.css">
- 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
- <style type="text/css">
- 	#content{
- 		width:1774px;
- 	}
+    <link rel="stylesheet" type="text/css" href="css/linenav.css"/>
+ 	
+	<title>2D Parking</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="css/style_22.css">
+	<link rel="stylesheet" type="text/css" href="css/pop_up_window_statistics.css">
+	<link rel="stylesheet" type="text/css" href="css/pop_up_window_worker_info.css">
+	 
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+	 <style type="text/css">
+	 	#content{
+	 		width:1774px;
+	 	}
 
- </style>
+	 </style>
 <script type="text/javascript">
  
 $( init );
@@ -541,7 +544,9 @@ function handleDragStart( event, ui ) {
 		...
 	</div>
 	<div id="cardSlots"  style="display:inline;height:100%;float: left;margin:0px!important;width: 1592px;"> </div>
-	<div id="cardPile"   style="display:inline;height:100%;float: right;width:85px;"> </div>
+	<div id="cardPile"   style="display:inline;height:100%;float: right;width:85px;"> 
+		<!-- <div id="open_statistics">Statistics</div> -->
+	</div>
 	
 
 
@@ -612,168 +617,45 @@ function handleDragStart( event, ui ) {
      <!-- the full screen transparent background -->
      <div id="fade" class="black_overlay" style="display: none;"></div>
 
+ 	<script type="text/javascript" src="js/pop_up_worker_info.js"></script>
+
+	<!------------------finish pop up box (worker info)----------------------\-->
+	<!------------------start pop up box (statistics)----------------------\-->
+	<!-- The box itself-->
+	<div id="whole_pop_up_with_transparent2">
+		<div id="pop_up_itself2" ><!--800px-->
+            <div id="filter_close_button_wrapper2">
+                <a href="javascript:void(0)" id="close_pop_up2">Close</a>
+            </div>
+
+            <div id="statistics_div_to_fill" style="padding: 80px 20px;"> <!--will be filled by ajax-->
+            	<!-- h4>Logistics Department <?php //echo "(".$num_parked."/".$total." Parked)" ?></h4>
+	            <table class="green2 pop_up_table2"> 
+				</table> -->
+
+
+			</div>
+	     </div>
+     </div>
+     <!-- the full screen transparent background -->
+     <div id="fade" class="black_overlay" style="display: none;"></div>
+
  	<script type="text/javascript">
 	$(document).ready(function(){
-	    $("#close_pop_up").click(function(){
-	        document.getElementById("whole_pop_up_with_transparent").style.display="none";
+	    $("#close_pop_up2").click(function(){
+	        document.getElementById("whole_pop_up_with_transparent2").style.display="none";
 	        // document.getElementById("fade").style.display="none";
 	    });
-	    $(".ui-draggable").click(function(){
-	    	var worker_id=$(this).data('worker_id');
-	    	var worker_name=$(this).data('worker_name');
-	    	var department_id=$(this).data('department_id');//not used now
-	    	var department_name=$(this).data('department_name');
-	    	var assigned_spot_id=$(this).data('assigned_spot_id');
-	    	var assigned_spot_label=$(this).data('assigned_spot_label');
-	    	var car_model=$(this).data('car_model');
-	    	//-------------make it user friendly by translating 108 and 4 to N/A-------------
-	    	console.log(department_id);
-	    	console.log(parseInt(department_id));
-	    	if (parseInt(department_id)===4){
-	    		//no department assigned yet. like Sam
-	    		department_name='N/A';
-	    	}
-	    	if (parseInt(assigned_spot_id)===108){
-	    		//no spot assigned to this worker yet. 
-	    		assigned_spot_label='N/A';
-	    	}
-	    	//------------change all worker data on popup span-----------------------------------
-	    	$('span.pop_up_worker_id').html(worker_id);//ids all start with pop_up
-	    	$('span.pop_up_worker_name').html(worker_name);
-	    	$('span.pop_up_department_name').html(department_name);
-	    	$('span.pop_up_assigned_spot_id').html(assigned_spot_id);
-	    	$('span.pop_up_assigned_spot_label').html(assigned_spot_label);
-	    	$('span.pop_up_car_model').html(car_model);
-	    	//------------change all worker data on popup input field----------------------------
-	    	$('input.pop_up_worker_id').val(worker_id);//ids all start with pop_up
-	    	$('input.pop_up_worker_name').val(worker_name);
-	    	$('input.pop_up_department_name').val(department_name);
-	    	$('input.pop_up_assigned_spot_id').val(assigned_spot_id);
-	    	$('input.pop_up_assigned_spot_label').val(assigned_spot_label);
-	    	$('input.pop_up_car_model').val(car_model);
+	    $("#open_statistics").click(function(){
+	    	
 
-	        document.getElementById("whole_pop_up_with_transparent").style.display="block";
+	        document.getElementById("whole_pop_up_with_transparent2").style.display="block";
 	        // document.getElementById("fade").style.display="block";
 	    })
 	});
 	</script>
 
-	<style type="text/css">
-
-		table.pop_up_table{
-			width:600px;/*left cell 136px, right cell 440px*/
-			border:1px;
-			align:"center";
-			cellpadding:4px;
-			cellspacing:0px;
-		}
-		table.green2 {
-		    border-width: 1px;
-		    border-spacing: 0px;
-		    border-style: inset;
-		    border-color: #BBB99D;
-		    border-collapse: collapse;
-		    background-color: white;
-
-		    margin: 0 auto;
-		}
-		table.green2 th {
-		    border-width: 1px;
-		    padding: 4px;
-		    border-style: solid;
-		    border-color: #BBB99D;
-		    background-color: rgb(250, 240, 230);
-		    background-color: #4EB106;
-		    color: white;
-		    -moz-border-radius: ;
-		    span-family: Verdana;
-		    span-size: 13px;
-		    span-weight: 100;
-		}
-
-		table.green2 td {
-		    border-width: 1px;
-		    padding: 4px;
-		    border-style: solid;
-		    border-color: #BBB99D;
-		    span-family: Verdana;
-		    span-size: 13px;
-		    span-weight: 100;
-		    color: #404040;
-		    -moz-border-radius: ;
-		}
-		.hidden{
-			display:none;
-		}
-		#filter_close_button_wrapper{
-			width: 100%;
-    		height: 50px;
-		}
-
-		#close_pop_up{
-			float: right;
-		    width: 80px;
-		    height: 30px;
-		    padding: 13px 13px;
-		}
-		.d__black_overlay{
-			display: none;
-			/*position: absolute;*/
-			position: fixed;/*This fills the whole screen even when scroll down*/
-			top: 0%;
-			left: 0%;
-			width: 100%;
-			height: 100%;
-			background-color: black;
-			z-index:1001;
-			-moz-opacity: 0.8;
-			opacity:.80;
-			filter: alpha(opacity=80);
-		}
-		#whole_pop_up_with_transparent {
-
-			width:100%;height:100%;
-			/*background-color: black;*/
-		    background-color: rgba(0,0,0,0.8);
-			z-index:1001;
-			/*-moz-opacity: 0.8;*/
-			/*opacity:.80;*/
-			/*filter: alpha(opacity=80);*/
-			position:fixed;left:0%;top:0%;
-			
-			display: none;
-
-			
-		}
-
-		#pop_up_itself{
-			/*display: none;*/
-			/*position: absolute;*/
-			/*position: fixed;*/
-			/*This make it in the same center place of the screen even when scroll down*/
-			/*top: 25%;*/
-			/*left: 25%;*/
-			/*width: 50%;
-			height: 50%;*/
-			padding: 16px;
-			/*border: 16px solid orange;*/
-			border-radius: 20px;
-			background-color: white;
-			z-index:1002;
-			overflow: auto;
-
-			 margin: 0 auto;
-		    width:800px; 
-		    position:relative; 
-		    top: 25%;
-
-		    /*shadow*/
-		     -webkit-box-shadow:0 0 10px rgba(0,0,0,0.4);
-		    -moz-box-shadow:0 0 10px rgba(0,0,0,0.4); 
-		    box-shadow:0 0 10px rgba(0,0,0,0.4);
-		}
-	</style>
-	<!------------------finish pop up box----------------------\-->
+	<!------------------finish pop up box (statistics)----------------------\-->
 
 </div>
  
