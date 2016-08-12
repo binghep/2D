@@ -1,4 +1,4 @@
-<?php session_start();?>
+<? session_start();?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml2/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
@@ -16,16 +16,16 @@
 
 
 <style type="text/css">
-
+<!--
 body {
 	background-image: url("./share/images/bk.jpg");
 }
-
+-->
 </style>
 <link href="./share/style.css" rel="stylesheet" type="text/css">
 
 <style type="text/css">
-
+<!--
 a:link {
 	text-decoration: none;
 }
@@ -42,13 +42,13 @@ a:active {
 	font-size: xx-small;
 	font-family: Genava, Arial, Helvetica, sans-serif;
 }
-
+-->
 </style>
 </head>
-<?php
+<?PHP 
 
 require_once('connections/myDB.php');
-// include("./includes/header.html");
+include("./includes/header.html");
 if (!isset($_SESSION['webuserID'])) {
 
 	// Start defining the URL.
@@ -94,16 +94,7 @@ $acl = $_SESSION['acl'];
 $su = $_SESSION['su'];
 //echo $username;
 ?>
- <!-- <iframe src="http://awe.1661hk.cn/alice/2D/index_add_top.php" width="100%" height="100%" style="border:none"></iframe> -->
- <table class="hide_overflow" border=0 cellspacing=0 cellpadding=0 id="hold_my_iframe">
- <iframe  scrolling="no" src="http://1661hk.com/alice/2D/index_add_top.php" width="100%" height="870px" style="border:none;overflow:hidden;"></iframe>
-</table>
-
-<style type="text/css">
-	#hold_my_iframe { padding:0px; margin:0 auto; width: 100%; height: 100% ; overflow: hidden;}
-
-
-</style>
+ <iframe src="http://awe.1661hk.cn/alice/2D/index_add_top.php" width="100%" height="100%" style="border:none"></iframe>
 <!-- --------------------------------------------------------------------------------------------- /-->	
 <!-- bottom term of use /-->
 
