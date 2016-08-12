@@ -1,0 +1,113 @@
+
+		table.pop_up_table{
+			width:600px;/*left cell 136px, right cell 440px*/
+			border:1px;
+			align:"center";
+			cellpadding:4px;
+			cellspacing:0px;
+		}
+		table.green2 {
+		    border-width: 1px;
+		    border-spacing: 0px;
+		    border-style: inset;
+		    border-color: #BBB99D;
+		    border-collapse: collapse;
+		    background-color: white;
+
+		    margin: 0 auto;
+		}
+		table.green2 th {
+		    border-width: 1px;
+		    padding: 4px;
+		    border-style: solid;
+		    border-color: #BBB99D;
+		    background-color: rgb(250, 240, 230);
+		    background-color: #4EB106;
+		    color: white;
+		    -moz-border-radius: ;
+		    span-family: Verdana;
+		    span-size: 13px;
+		    span-weight: 100;
+		}
+
+		table.green2 td {
+		    border-width: 1px;
+		    padding: 4px;
+		    border-style: solid;
+		    border-color: #BBB99D;
+		    span-family: Verdana;
+		    span-size: 13px;
+		    span-weight: 100;
+		    color: #404040;
+		    -moz-border-radius: ;
+		}
+		.hidden{
+			display:none;
+		}
+		#filter_close_button_wrapper{
+			width: 100%;
+    		height: 50px;
+		}
+
+		#close_pop_up{
+			float: right;
+		    width: 80px;
+		    height: 30px;
+		    padding: 13px 13px;
+		}
+		.d__black_overlay{
+			display: none;
+			/*position: absolute;*/
+			position: fixed;/*This fills the whole screen even when scroll down*/
+			top: 0%;
+			left: 0%;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+		}
+		#whole_pop_up_with_transparent {
+
+			width:100%;height:100%;
+			/*background-color: black;*/
+		    background-color: rgba(0,0,0,0.8);
+			z-index:1001;
+			/*-moz-opacity: 0.8;*/
+			/*opacity:.80;*/
+			/*filter: alpha(opacity=80);*/
+			position:fixed;left:0%;top:0%;
+			
+			display: none;
+
+			
+		}
+
+		#pop_up_itself{
+			/*display: none;*/
+			/*position: absolute;*/
+			/*position: fixed;*/
+			/*This make it in the same center place of the screen even when scroll down*/
+			/*top: 25%;*/
+			/*left: 25%;*/
+			/*width: 50%;
+			height: 50%;*/
+			padding: 16px;
+			/*border: 16px solid orange;*/
+			/*border-radius: 20px;*/
+			background-color: white;
+			z-index:1002;
+			overflow: auto;
+
+			 margin: 0 auto;
+		    width:800px; 
+		    position:relative; 
+		    top: 7%;
+
+		    /*shadow*/
+		     -webkit-box-shadow:0 0 10px rgba(0,0,0,0.4);
+		    -moz-box-shadow:0 0 10px rgba(0,0,0,0.4); 
+		    box-shadow:0 0 10px rgba(0,0,0,0.4);
+		}
