@@ -460,11 +460,11 @@ function init() {
            <td></td>
            <td style="float: left;padding-left: 795px;padding-top: 20px;">
            <?php
-            echo '<h3  style="display:block; z-index:2; color: black; font: 13px Verdana; float:right;">';
+            echo '<h3  id="top_right_menu" style="display:none; z-index:2; color: black; font: 13px Verdana; float:right;">';
             echo '<a href="#" id="open_statistics"><font>Statistics</font></a>';
-            echo ' | ';
+            echo '<span> | </span>';
             echo '<a id="export_csv" href="export_csv.php?select_department_id='.$filter_by_department_id.'" style="target-new: tab;"><font>Export CSV</font></a>';
-            echo ' | ';
+            echo '<span id="vertical_delimiter2"> | </span>';
              echo '<a href="#" id="btnSave2"><font>Screenshot</font></a>'; 
             // echo ' | ';
             // echo '<a href="#" id="btnSave1"><font>Screenshot Small</font></a>';             
@@ -593,7 +593,35 @@ function init() {
      <div id="fade" class="black_overlay" style="display: none;"></div>
 
   <script type="text/javascript">
+  function is_IE(){
+    var ms_ie = false;
+    var ua = window.navigator.userAgent;
+    var old_ie = ua.indexOf('MSIE ');
+    var new_ie = ua.indexOf('Trident/');
 
+    if ((old_ie > -1) || (new_ie > -1)) {
+        ms_ie = true;
+    }
+    return ms_ie;//true or false
+    // if ( ms_ie ) {
+        //IE specific code goes here
+    // }
+  }
+
+  function is_safari(){
+    // var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)
+    // return isSafari;
+
+      var is_chrome = window.navigator.userAgent.indexOf('Chrome') > -1;
+    var is_explorer = window.navigator.userAgent.indexOf('MSIE') > -1;
+    var is_firefox = window.navigator.userAgent.indexOf('Firefox') > -1;
+    var is_safari = window.navigator.userAgent.indexOf("Safari") > -1;
+    var is_opera = window.navigator.userAgent.toLowerCase().indexOf("op") > -1;
+    if ((is_chrome)&&(is_safari)) {is_safari=false;}
+    if ((is_chrome)&&(is_opera)) {is_chrome=false;}
+    // alert(is_safari);
+    return is_safari;
+  }
   // function SaveAsFile(t,f,m) {
   //     try {
   //         var b = new Blob([t],{type:m});
@@ -698,6 +726,14 @@ function init() {
             }
         });
     });
+
+
+      if (is_IE() || is_safari()){
+        $("#btnSave2").hide();
+        $("#vertical_delimiter2").hide();
+      }
+
+      $("#top_right_menu").show();
   });
   </script>
 

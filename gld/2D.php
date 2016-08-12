@@ -96,7 +96,7 @@ $su = $_SESSION['su'];
 ?>
  <!-- <iframe src="http://awe.1661hk.cn/alice/2D/index_add_top.php" width="100%" height="100%" style="border:none"></iframe> -->
  <table class="hide_overflow" border=0 cellspacing=0 cellpadding=0 id="hold_my_iframe">
- <iframe  scrolling="no" src="http://1661hk.com/alice/2D/index_add_top.php" width="100%" height="870px" style="border:none;overflow:hidden;"></iframe>
+ <iframe  scrolling="no" src="http://www.1661hk.com/alice/2D/index_add_top.php" width="100%" height="870px" style="border:none;overflow:hidden;"></iframe>
 </table>
 
 <style type="text/css">
