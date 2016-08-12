@@ -1,0 +1,52 @@
+/* - - - - - - - - - - - - - - - - - - - - -
+        Title : Wufoo Form Structure
+        Author : Infinity Box Inc.
+        URL : http://wufoo.com
+
+        Last Updated : September 30, 2008
+
+        - - - - - - - - - - - - - - - - - - - - - */
+        #linebar {
+            margin: 0;
+            padding: 0;
+            height: 1em; }
+        #linebar li {
+            list-style: none;
+            float: left; }
+        #linebar li a {
+            display: block;
+            padding: 3px 3px;
+            background-color: white;
+            color: blue;
+            text-decoration: none; }
+            
+        #linebar li ul {
+            display: none; 
+            width: 10em; /* Width to help Opera out */
+            background-color: white;}
+            
+        #linebar li:hover ul {
+            display: block;
+            position: absolute;
+            margin: 0;
+            padding: 0; }
+        #linebar li:hover li {
+            float: none; }
+        #linebar li:hover li a {
+            background-color: white;
+            border-bottom: 1px solid #fff;
+            color: blue; }
+        #linebar li li a:hover {
+            background-color: #8db3ff; }
+
+        #linebar li:hover ul, #linebar li.hover ul {
+            display: block;
+            position: absolute;
+            margin: 0;
+            padding: 0; }
+        #linebar li:hover li, #linebar li.hover li {
+            float: none; }
+        #linebar li:hover li a, #linebar li.hover li a {
+            background-color: white;
+            border-bottom: 1px solid #fff;
+            color: #666; }
