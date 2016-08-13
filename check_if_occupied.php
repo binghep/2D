@@ -1,5 +1,7 @@
 <?php
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+
+
 $parking_spot_id=$_GET['parking_spot_id'];
 $worker_id=$_GET['worker_id'];
 
@@ -75,20 +77,52 @@ foreach ($workers->all_workers as $worker) {
 if ($occupied===true){
 	$response['data']['status']="error";//ok means successfully occupied the empty spot
 	$response['data']['is_empty_spot']=false;
-	$response['error_msg']="Not OK (Already taken by $spot_owner)";
+	$response['data']['error_msg']="Not OK (Already taken by $spot_owner)";
 }else{
 	$response['data']['is_empty_spot']=true;
 	//-------update database: add this spot to worker table:--------
 	$query="update 2D_workers SET assigned_parking_spot=$parking_spot_id where id=".$worker_id;
+
+
 	$result=$db_handle->runQuery($query);
 	if ($result===true){
 		$response['data']['status']="ok";//ok means successfully occupied the empty spot
+
+		//--------record successful update in database-----------
+		$field_name="assigned_parking_spot";
+		$new_value=$parking_spot_id;
+		$result=add_history($field_name,$new_value,$worker_id,$db_handle);
+		if($result===false){
+			$response['data']['status']="error";
+			$response['data']['error_msg']="mysql insert error: cannot insert new row into database";
+		}
 	}else{
 		$response['data']['status']="error";	
-		$response['error_msg']="mysql update error: cannot add this spot to worker";
+		$response['data']['error_msg']="mysql update error: cannot add this spot to worker";
 	}
 
 }
 
 
 die (json_encode($response, JSON_FORCE_OBJECT));
+
+
+/**
+ * In 2D_history table record that for $worker_id, $field_name is changed to (string)$new_value
+ * Returns: bool
+ *  		true means mysql update success
+ * 			false means mysql update failed
+ */ 
+function add_history($field_name,$new_value,$worker_id,$db_handle){
+	//------------prepare LA timestamp for mysql auto timestamp, otherwise it is UTC even though I changed //$ sudo dpkg-reconfigure tzdata
+	//-----------------------------------------------------------------------------------------------------
+	date_default_timezone_set("America/Los_Angeles");
+
+	$date = new DateTime(); //this returns the current date time
+	$time_stamp=date_format($date,"Y-m-d H:i:s");
+
+	$query="INSERT INTO `global_link_distribution`.`2D_history` (`worker_id`,`field_name`, `new_value`, `time_stamp`) VALUES ('$worker_id','$field_name', '$new_value','$time_stamp' );";//auto timestamp is UTC even though we set dpkg-reconfigure tzdata
+
+	$result=$db_handle->runQuery($query);
+	return $result;
+}

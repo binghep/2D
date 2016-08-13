@@ -37,7 +37,7 @@ function handleDragStart( event, ui ) {
     });
     // Callback handler that will be called on failure
     request_drag_start.fail(function (jqXHR, textStatus, errorThrown) {
-	    $('#box').html("ERROR: cannot remove assgiend spot for this worker. Ajax request failed. ");
+	    $('#box').html("ERROR: cannot remove assigned spot for this worker. Ajax request failed. ");
 
         // Log the error to the console
         console.error(

@@ -143,8 +143,8 @@ function display_spots($region_1_spot_labels){
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <link rel="stylesheet" type="text/css" href="css/style_22.css">
   <link rel="stylesheet" type="text/css" href="css/pop_up_window_statistics.css">
+  <link rel="stylesheet" type="text/css" href="css/pop_up_window_report.css">
   <link rel="stylesheet" type="text/css" href="css/pop_up_window_worker_info.css">
-   
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
 
@@ -425,50 +425,54 @@ function init() {
           <tr> 
             <td  width="27" height="59" valign="middle"></td>
             <td width="705" height="59" valign="bottom" align="left">
-            <font size="-1" face="Arial, Helvetica, sans-serif"><strong>Parking Planner</strong></font></br>
+            	<font size="-1" face="Arial, Helvetica, sans-serif"><strong>Parking Planner</strong></font></br>
            
-           <span class="spanFormat">
-                 <form action="index_add_top.php" method="GET">
-                   <?php
-                      //-----------------build a list of department objects--------------------
-                      $departments=new departments($db_handle);
-                      // foreach ($departments->all_departments as $department_object) {
-                          // var_dump($department_object);
-                      // }
+	           <span class="spanFormat">
+	                 <form action="index_add_top.php" method="GET">
+	                   <?php
+	                      //-----------------build a list of department objects--------------------
+	                      $departments=new departments($db_handle);
+	                      // foreach ($departments->all_departments as $department_object) {
+	                          // var_dump($department_object);
+	                      // }
 
-                      ////select Owner////
-                      echo "<select name='select_department_id'>";
-                      echo "<option value='all_departments' >All Departments</option>";
-                      //-----------------echo out each department as an option-----------------
-                      foreach ($departments->all_departments as $department_object) {
-                          // var_dump($department_object);
-                          $selected=($filter_by_department_id===(int)$department_object->department_id)?"selected":"";
-                          echo "<option value='".$department_object->department_id."' ".$selected.">".$department_object->department_name."</option>";
-                      }
-                      echo "</select>"; 
-                      ////select Owner////
-                    ?>
-                   <!--  <font size="2" face="Arial, Helvetica, sans-serif">Style:
-                    <input type="text" name="style" size="10" maxlength="40"/>
-                    <font size="2" face="Arial, Helvetica, sans-serif"><input name="nozero" type="checkbox" value="nozero" /><span class="style2">SHOW "0"</span>  -->
-                    
-                    <input type="submit" name="submit2" class="button" value="Find" />
-                    <!-- </font><span class="style2">To view all inventory - leave Style blank and submit</span>  -->
-                </form> 
-            </span> 
+	                      ////select Owner////
+	                      echo "<select name='select_department_id'>";
+	                      echo "<option value='all_departments' >All Departments</option>";
+	                      //-----------------echo out each department as an option-----------------
+	                      foreach ($departments->all_departments as $department_object) {
+	                          // var_dump($department_object);
+	                          $selected=($filter_by_department_id===(int)$department_object->department_id)?"selected":"";
+	                          echo "<option value='".$department_object->department_id."' ".$selected.">".$department_object->department_name."</option>";
+	                      }
+	                      echo "</select>"; 
+	                      ////select Owner////
+	                    ?>
+	                   <!--  <font size="2" face="Arial, Helvetica, sans-serif">Style:
+	                    <input type="text" name="style" size="10" maxlength="40"/>
+	                    <font size="2" face="Arial, Helvetica, sans-serif"><input name="nozero" type="checkbox" value="nozero" /><span class="style2">SHOW "0"</span>  -->
+	                    
+	                    <input type="submit" name="submit2" class="button" value="Find" />
+	                    <!-- </font><span class="style2">To view all inventory - leave Style blank and submit</span>  -->
+	                </form> 
+	            </span> 
            </td>
-           <td></td>
-           <td style="float: left;padding-left: 795px;padding-top: 20px;">
+           <td style="width:200px;">
+           	
+           </td>
+           <td style="padding-top: 20px;width:330px;">
            <?php
-            echo '<h3  id="top_right_menu" style="display:none; z-index:2; color: black; font: 13px Verdana; float:right;">';
+            echo '<span  id="top_right_menu" style="display:none; z-index:2; color: black; font: 13px Verdana; float:left;width:330px;">';
             echo '<a href="#" id="open_statistics"><font>Statistics</font></a>';
+            echo '<span> | </span>';
+            echo '<a href="#" id="open_report"><font>Report</font></a>';
             echo '<span> | </span>';
             echo '<a id="export_csv" href="export_csv.php?select_department_id='.$filter_by_department_id.'" style="target-new: tab;"><font>Export CSV</font></a>';
             echo '<span id="vertical_delimiter2"> | </span>';
              echo '<a href="#" id="btnSave2"><font>Screenshot</font></a>'; 
             // echo ' | ';
             // echo '<a href="#" id="btnSave1"><font>Screenshot Small</font></a>';             
-            echo '</h3>'; 
+            echo '</span>'; 
             ?>
            </td>
            <script type="text/javascript">
@@ -591,154 +595,77 @@ function init() {
      </div>
      <!-- the full screen transparent background -->
      <div id="fade" class="black_overlay" style="display: none;"></div>
+     <!-- The following script has to be hardcoded in his php because it has a php variable -->
+    <script type="text/javascript">
+    	$(document).ready(function(){
+		 	  $("#close_pop_up2").click(function(){
+	         	 document.getElementById("whole_pop_up_with_transparent2").style.display="none";
+	          // document.getElementById("fade").style.display="none";
+		    });
+		      
+	      var request;
+	      $("#open_statistics").click(function(){
+	           if (request){
+	                request.abort();
+	            }
+	            request= $.ajax({
+	                url:"get_html_content_for_statistics_pop_up.php",
+	                type: "get",
+	                data: {'select_department_id': "<?php echo $filter_by_department_id;?>"}
+	            });
 
-  <script type="text/javascript">
-  function is_IE(){
-    var ms_ie = false;
-    var ua = window.navigator.userAgent;
-    var old_ie = ua.indexOf('MSIE ');
-    var new_ie = ua.indexOf('Trident/');
+	            // Callback handler that will be called on success
+	            request.done(function (response, textStatus, jqXHR) {
+	                // Log a message to the console
+	                console.log(response);
+	                var response_obj=JSON.parse(response);
+	                if (response_obj.data.status=='ok'){
+	                    console.log("successfully get pop up html from ajax. ");
+	                    $('#statistics_div_to_fill').html(response_obj.data.content);
+	                    document.getElementById("whole_pop_up_with_transparent2").style.display="block";
+	                    // document.getElementById("fade").style.display="block";
+	                }else if (response_obj.data.status=='error'){
+	                    console.log("ERROR MSG: "+response_obj.data.error_msg);
+	                    $('#box').html(response_obj.data.error_msg);
+	                }
+	            });
+	            // Callback handler that will be called on failure
+	            request.fail(function (jqXHR, textStatus, errorThrown) {
+	              $('#box').html("ERROR: ajax failed to get pop up html. ");
+	                // Log the error to the console
+	                console.error(
+	                    "The following error occurred: " +
+	                    textStatus, errorThrown
+	                );
+	            });
+	       });
+		})
 
-    if ((old_ie > -1) || (new_ie > -1)) {
-        ms_ie = true;
-    }
-    return ms_ie;//true or false
-    // if ( ms_ie ) {
-        //IE specific code goes here
-    // }
-  }
-
-  function is_safari(){
-    // var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)
-    // return isSafari;
-
-      var is_chrome = window.navigator.userAgent.indexOf('Chrome') > -1;
-    var is_explorer = window.navigator.userAgent.indexOf('MSIE') > -1;
-    var is_firefox = window.navigator.userAgent.indexOf('Firefox') > -1;
-    var is_safari = window.navigator.userAgent.indexOf("Safari") > -1;
-    var is_opera = window.navigator.userAgent.toLowerCase().indexOf("op") > -1;
-    if ((is_chrome)&&(is_safari)) {is_safari=false;}
-    if ((is_chrome)&&(is_opera)) {is_chrome=false;}
-    // alert(is_safari);
-    return is_safari;
-  }
-  // function SaveAsFile(t,f,m) {
-  //     try {
-  //         var b = new Blob([t],{type:m});
-  //         saveAs(b, f);
-  //     } catch (e) {
-  //         window.open("data:"+m+"," + encodeURIComponent(t), '_blank','');
-  //     }
-  // }
-  //Pad given value to the left with "0"
-  function AddZero(num) {
-      return (num >= 0 && num < 10) ? "0" + num : num + "";
-  }
-
-  $(document).ready(function(){
-      $("#close_pop_up2").click(function(){
-          document.getElementById("whole_pop_up_with_transparent2").style.display="none";
-          // document.getElementById("fade").style.display="none";
-      });
-      var request;
-      $("#open_statistics").click(function(){
-           if (request){
-                request.abort();
-            }
-            request= $.ajax({
-                url:"get_html_content_for_statistics_pop_up.php",
-                type: "get",
-                data: {'select_department_id': "<?php echo $filter_by_department_id;?>"}
-            });
-
-            // Callback handler that will be called on success
-            request.done(function (response, textStatus, jqXHR) {
-                // Log a message to the console
-                console.log(response);
-                var response_obj=JSON.parse(response);
-                if (response_obj.data.status=='ok'){
-                    console.log("successfully get pop up html from ajax. ");
-                    $('#statistics_div_to_fill').html(response_obj.data.content);
-                    document.getElementById("whole_pop_up_with_transparent2").style.display="block";
-                    // document.getElementById("fade").style.display="block";
-                }else if (response_obj.data.status=='error'){
-                    console.log("ERROR MSG: "+response_obj.data.error_msg);
-                    $('#box').html(response_obj.data.error_msg);
-                }
-            });
-            // Callback handler that will be called on failure
-            request.fail(function (jqXHR, textStatus, errorThrown) {
-              $('#box').html("ERROR: ajax failed to get pop up html. ");
-                // Log the error to the console
-                console.error(
-                    "The following error occurred: " +
-                    textStatus, errorThrown
-                );
-            });
-         
-      })
-    
-
-    //  $("#btnSave1").click(function() { 
-    //     var now=new Date();
-    //     var strDateTime = [[AddZero(now.getDate()), AddZero(now.getMonth() + 1), now.getFullYear()].join("/"), [AddZero(now.getHours()), AddZero(now.getMinutes())].join(":"), now.getHours() >= 12 ? "PM" : "AM"].join(" ");
-
-
-    //     var n=strDateTime.replace(/\W/g,'_');
-    //     html2canvas($("#content"), {
-    //         onrendered: function(canvas) {
-    //             theCanvas = canvas;
-    //             document.body.appendChild(canvas);
-
-    //             canvas.toBlob(function(blob) {
-    //       saveAs(blob, n+".png"); 
-    //     });
-    //         }
-    //     });
-    // });
-    //  $("#btnSave2").click(function() { 
-    //     var d=new Date();
-    //     var n=d.toTimeString().replace(/\W/g,'_');
-    //     html2canvas($("#exlucde_menu_html"), {
-    //         onrendered: function(canvas) {
-    //             theCanvas = canvas;
-    //             document.body.appendChild(canvas);
-
-    //             canvas.toBlob(function(blob) {
-    //       saveAs(blob, n+".png"); 
-    //     });
-    //         }
-    //     });
-    // });
-
-      $("#btnSave2").click(function() { 
-        var now=new Date();
-        var strDateTime = [[ now.getFullYear(), AddZero(now.getMonth() + 1),AddZero(now.getDate())].join("_"), [AddZero(now.getHours()), AddZero(now.getMinutes()), AddZero(now.getSeconds())].join(":"), now.getHours() >= 12 ? "PM" : "AM"].join(" ");
-        // var n=strDateTime.replace(/\W/g,'_');
-        var n=strDateTime;
-        html2canvas($("#exlucde_menu_html"), {
-            onrendered: function(canvas) {
-                theCanvas = canvas;
-                // document.body.appendChild(canvas);
-                canvas.toBlob(function(blob) {
-          saveAs(blob, n+".png"); 
-        });
-            }
-        });
-    });
-
-
-      if (is_IE() || is_safari()){
-        $("#btnSave2").hide();
-        $("#vertical_delimiter2").hide();
-      }
-
-      $("#top_right_menu").show();
-  });
-  </script>
-
+    </script>
   <!------------------finish pop up box (statistics)----------------------\-->
-
+  <!------------------start pop up box (report)----------------------\-->
+  <!-- The box itself-->
+  <div id="whole_pop_up_with_transparent3">
+    <div id="pop_up_itself3" style="height: 550px;" ><!--800px-->
+            <div id="filter_close_button_wrapper3">
+                <a href="javascript:void(0)" id="close_pop_up3">Close</a>
+            </div>
+            <div style="padding:10px">
+	            <div id="report_div_to_fill" style="padding:0px 20px 50px;"> <!--will be filled by ajax-->
+	              <!-- h4>Logistics Department <?php //echo "(".$num_parked."/".$total." Parked)" ?></h4>
+	              <table class="green2 pop_up_table2"> 
+	        </table> -->
+	      		</div>
+      		</div>
+       </div>
+     </div>
+     <!-- the full screen transparent background -->
+     <div id="fade" class="black_overlay" style="display: none;"></div>
+  <script type="text/javascript" src="js/pop_up_report.js"></script>
+  <!------------------finish pop up box (report)----------------------\-->
+  <!------------------other js----------------------\-->
+    <script type="text/javascript" src="js/download_screenshot.js"></script>
+  <script type="text/javascript" src="js/hide_btnSave_screenshot_for_ie_n_safari.js"></script>
 </div>
  
 </body>

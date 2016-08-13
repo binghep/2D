@@ -1,0 +1,225 @@
+   a:link {
+        text-decoration: none;
+    }
+
+    a:visited {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    a:active {
+        text-decoration: none;
+    }
+
+    /*  do not change color when a link is visited  */
+    a:link, a:visited {
+        color: blue;
+    }
+/*----------------------by Steven: style the tables in the pop up box-------------------------*/
+    .bottombox {
+        margin: 150px auto 0 auto;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        -moz-box-shadow: 0px 0px 5px #444;
+        -webkit-box-shadow: 0px 0px 5px #444;
+        box-shadow: 0px 0px 0px #444;
+        background: #fff;
+        z-index: -1;
+    }
+
+    body1 {
+            font-family: Verdana;
+            font-size: 0.8em;
+        }
+
+        .report {
+            border-collapse: collapse;
+        }
+
+        .report h4 {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .report img {
+            float: right;
+        }
+
+        .report ul {
+            margin: 10px 0 10px 40px;
+            padding: 0px;
+        }
+
+        .report th {
+            border-width: 1px;
+            padding: 4px;
+            border-style: solid;
+            border-color: #CDCDCD;
+            background-color: #E8F2E5;
+            color: #3D3D3D;
+            -moz-border-radius:;
+            font-family: Verdana;
+            font-size: 11px;
+            font-weight: 100;
+        }
+
+        .report td {
+            border-width: 1px;
+            padding: 4px;
+            border-style: solid;
+            border-color: #BBB99D;
+            font-family: Verdana;
+            font-size: 11px;
+            font-weight: 100;
+            color: #3D3D3D;
+            -moz-border-radius:;
+            height: 0px;
+
+            background:#fff;
+            /*repeat-x scroll center center;*/
+            word-wrap: break-word;
+        }
+        .report td.yellow{
+            background: #ffd;
+        }
+
+        .report tr.odd td {
+            border-width: 1px;
+            padding: 4px;
+            border-style: solid;
+            border-color: #BBB99D;
+            font-family: Verdana;
+            font-size: 11px;
+            font-weight: 100;
+            color: #3D3D3D;
+            -moz-border-radius:;
+        }
+
+        .report div.arrow {
+            background: transparent url(arrows.png) no-repeat scroll 0px -16px;
+            width: 16px;
+            height: 16px;
+            display: block;
+        }
+
+        #r1 {
+            display: none;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+
+
+
+
+
+
+
+
+/*------------------------by Alice: make the pop up feature. basically the difference between the following and pop_up_window_worker_info.css or pop_up_window_statistics.css is the following append 3 to dom element ids.--------------------------------*/
+
+        table.pop_up_table3{
+            width:600px;/*left cell 136px, right cell 440px*/
+            border:1px;
+            align:"center";
+            cellpadding:4px;
+            cellspacing:0px;
+        }
+        table.green3 {
+            border-width: 1px;
+            border-spacing: 0px;
+            border-style: inset;
+            border-color: #BBB99D;
+            border-collapse: collapse;
+            background-color: white;
+
+            margin: 0 auto;
+        }
+        table.green3 th {
+            border-width: 1px;
+            padding: 4px;
+            border-style: solid;
+            border-color: #BBB99D;
+            background-color: rgb(250, 240, 230);
+            background-color: #4EB106;
+            color: white;
+            -moz-border-radius: ;
+            span-family: Verdana;
+            span-size: 13px;
+            span-weight: 100;
+        }
+
+        table.green3 td {
+            border-width: 1px;
+            padding: 4px;
+            border-style: solid;
+            border-color: #BBB99D;
+            span-family: Verdana;
+            span-size: 13px;
+            span-weight: 100;
+            color: #404040;
+            -moz-border-radius: ;
+        }
+        .hidden{
+            display:none;
+        }
+        #filter_close_button_wrapper2{
+            width: 100%;
+            height: 50px;
+        }
+
+        #close_pop_up3{
+            float: right;
+            width: 80px;
+            height: 30px;
+            padding: 13px 13px;
+        }
+        
+        #whole_pop_up_with_transparent3 {
+
+            width:100%;height:100%;
+            /*background-color: black;*/
+            background-color: rgba(0,0,0,0.8);
+            z-index:1001;
+            /*-moz-opacity: 0.8;*/
+            /*opacity:.80;*/
+            /*filter: alpha(opacity=80);*/
+            position:fixed;left:0%;top:0%;
+            
+            display: none;
+
+            
+        }
+
+        #pop_up_itself3{
+            /*display: none;*/
+            /*position: absolute;*/
+            /*position: fixed;*/
+            /*This make it in the same center place of the screen even when scroll down*/
+            /*top: 25%;*/
+            /*left: 25%;*/
+            /*width: 50%;
+            height: 50%;*/
+            padding: 16px;
+            /*border: 16px solid orange;*/
+            /*border-radius: 20px;*/
+            background-color: white;
+            z-index:1002;
+            overflow: auto;
+
+             margin: 0 auto;
+            width:800px; 
+            position:relative; 
+            top: 5%;
+
+            /*shadow*/
+             -webkit-box-shadow:0 0 10px rgba(0,0,0,0.4);
+            -moz-box-shadow:0 0 10px rgba(0,0,0,0.4); 
+            box-shadow:0 0 10px rgba(0,0,0,0.4);
+        }

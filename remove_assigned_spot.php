@@ -1,5 +1,7 @@
 <?php
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+
+
 $worker_id=$_GET['worker_id'];
 $response['data']['queried_worker_id']=$worker_id;
 
@@ -28,9 +30,42 @@ if (is_null($result)){
 	$result=$db_handle->runQuery($query);
 	if ($result===true){
 		$response['data']['status']='ok';
+
+		//--------record successful update in database-----------
+		$field_name="assigned_parking_spot";
+		$new_value=108;
+		$result=add_history($field_name,$new_value,$worker_id,$db_handle);
+		if($result===false){
+			$response['data']['status']="error";
+			$response['data']['error_msg']="mysql insert error: cannot insert new row into database";
+		}
 	}else{
 		$response['data']['error_msg']="ERROR: update query failed.";
 	}
 }
 
 die (json_encode($response, JSON_FORCE_OBJECT));
+
+
+
+
+
+/**
+ * In 2D_history table record that for $worker_id, $field_name is changed to (string)$new_value
+ * Returns: bool
+ *  		true means mysql update success
+ * 			false means mysql update failed
+ */ 
+function add_history($field_name,$new_value,$worker_id,$db_handle){
+	//------------prepare LA timestamp for mysql auto timestamp, otherwise it is UTC even though I changed //$ sudo dpkg-reconfigure tzdata
+	//-----------------------------------------------------------------------------------------------------
+	date_default_timezone_set("America/Los_Angeles");
+
+	$date = new DateTime(); //this returns the current date time
+	$time_stamp=date_format($date,"Y-m-d H:i:s");
+	// var_dump($time_stamp);
+
+	$query="INSERT INTO `global_link_distribution`.`2D_history` (`worker_id`,`field_name`, `new_value`, `time_stamp`) VALUES ('$worker_id','$field_name', '$new_value','$time_stamp' );";//auto timestamp is UTC even though we set dpkg-reconfigure tzdata
+	$result=$db_handle->runQuery($query);
+	return $result;
+}
