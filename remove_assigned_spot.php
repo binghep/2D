@@ -1,6 +1,5 @@
 <?php
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-date_default_timezone_set("America/Los_Angeles");
 
 
 $worker_id=$_GET['worker_id'];
@@ -60,10 +59,13 @@ die (json_encode($response, JSON_FORCE_OBJECT));
 function add_history($field_name,$new_value,$worker_id,$db_handle){
 	//------------prepare LA timestamp for mysql auto timestamp, otherwise it is UTC even though I changed //$ sudo dpkg-reconfigure tzdata
 	//-----------------------------------------------------------------------------------------------------
+	date_default_timezone_set("America/Los_Angeles");
+
 	$date = new DateTime(); //this returns the current date time
 	$time_stamp=date_format($date,"Y-m-d H:i:s");
+	// var_dump($time_stamp);
 
-	$query="INSERT INTO `global_link_distribution`.`2D_history` (`worker_id`,`field_name`, `new_value`) VALUES ('$worker_id','$field_name', '$new_value');";//auto timestamp
+	$query="INSERT INTO `global_link_distribution`.`2D_history` (`worker_id`,`field_name`, `new_value`, `time_stamp`) VALUES ('$worker_id','$field_name', '$new_value','$time_stamp' );";//auto timestamp is UTC even though we set dpkg-reconfigure tzdata
 	$result=$db_handle->runQuery($query);
 	return $result;
 }

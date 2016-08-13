@@ -43,7 +43,7 @@ from 2D_workers
 		if (!is_null($result)){
 			foreach ($result as $row) {
 				// var_dump($row);
-				$worker_object=new worker_object($row['worker_id'],$row['worker_name'],$row['department_id'],$row['department_name'],$row['car_model'],$row['assigned_parking_spot'],$row['spot_label']);
+				$worker_object=new worker_object($row['worker_id'],$row['worker_name'],$row['department_id'],$row['department_name'],$row['car_model'],$row['assigned_parking_spot'],$row['spot_label'],$this->db_handle);
 				array_push($all_workers,$worker_object);
 			}
 			$this->all_workers=$all_workers;
